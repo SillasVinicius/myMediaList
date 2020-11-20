@@ -1,0 +1,33 @@
+.userContainer .nave {
+    width: 60%; 
+    padding-bottom: 30px; 
+    padding-top: 24;
+}
+
+.userContainer .nave nav .breadcrumb {
+    background-color: white; 
+    padding-left: 0px;
+}
+
+.userContainer .nave .item {
+    margin-top: 16px;
+}
+
+.userContainer .nave .item .card-body .card-subtitle {
+    font-size: 0.8rem;
+}
+
+.userContainer .nave .item .card-body .card-title {
+    font-weight: bold; 
+    color: black; 
+    padding-top: 8px;
+}
+
+.userContainer .nave .item .card-body .card-thirdSubtitle {
+    font-weight: bold; 
+    color: gray; 
+}
+
+.userContainer .nave .item .card-body .botoes {
+    margin-top: 10px;
+}

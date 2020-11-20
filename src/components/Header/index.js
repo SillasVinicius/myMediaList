@@ -1,36 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({create, nameButton}) => {
   return (
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <Link class="navbar-brand" to="/"><strong>Admin</strong>MyMediaList</Link>
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <Link className="navbar-brand" to="/"><strong>Admin</strong>MyMediaList</Link>
+        <button className="navbar-toggler" type="button" data-toggle="collapse"
           data-target="#navbarNav" aria-controls="navbarNav"
           aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item active"><Link class="nav-link" to="/">Home</Link>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item active"><Link className="nav-link" to="/">Home</Link>
             </li>
-            <li class="nav-item"><Link class="nav-link" to="/user">Usuários</Link>
+            <li className="nav-item"><Link className="nav-link" to="/user">Usuários</Link>
             </li>
-            <li class="nav-item"><Link class="nav-link" to="/filmes">Filmes</Link>
+            <li className="nav-item"><Link className="nav-link" to="/filmes">Filmes</Link>
             </li>
-            <li class="nav-item"><Link class="nav-link" to="/series">Séries</Link>
+            <li className="nav-item"><Link className="nav-link" to="/series">Séries</Link>
             </li>
-            <li class="nav-item"><Link class="nav-link" to="/livros">Livros</Link>
+            <li className="nav-item"><Link className="nav-link" to="/livros">Livros</Link>
             </li>
-            <li class="nav-item"><Link class="nav-link" to="/biblioteca">Biblioteca</Link>
+            <li className="nav-item"><Link className="nav-link" to="/biblioteca">Bibliotecas</Link>
             </li>
-            <li class="nav-item"><Link class="nav-link" to="/status">Status</Link>
+            <li className="nav-item"><Link className="nav-link" to="/status">Status</Link>
             </li>
-            <li class="nav-item"><Link class="nav-link" to="/tipo">Tipo</Link>
+            <li className="nav-item"><Link className="nav-link" to="/tipo">Tipos</Link>
             </li>
           </ul>
         </div>
+        {create && <Link to={`/${create}`} className="btn btn-primary" role="button">{nameButton}</Link>}
       </nav>
     </header>
   );

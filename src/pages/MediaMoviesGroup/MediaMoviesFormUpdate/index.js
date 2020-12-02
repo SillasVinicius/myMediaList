@@ -1,42 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-st-modal';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import Header from './../../../components/Header';
 import api from './../../../services/api';
 import './styles.css';
 
-const MediaBooksForm = () => {
+const MediaMoviesFormUpdate = () => {
   const history = useHistory();
 
+  const { id } = useParams();
   const [titulo, setTitulo] = useState('');
-  const [qtdPaginas, setQtdPaginas] = useState('');
+  const [minutagem, setMinutagem] = useState('');
+
+  useEffect(() => {
+    async function fetchData() {
+      await api.get(`/media/${id}`).then(r => {
+        setTitulo(r.data.titulo);
+        setMinutagem(r.data.minutagem);
+      }).catch((error) => {
+        Alert('Erro ao carregar filme', error.message);
+        history.push('/filmes');
+      });
+    }
+
+    fetchData();
+  }, [id]);
 
   function limpar() {
     setTitulo('');
-    setQtdPaginas('');
+    setMinutagem('');
   }
 
-  async function createBook(e) {
+  async function createMovie(e) {
     e.preventDefault();
 
     console.log({
       titulo,
-      qtdPaginas
+      minutagem
     })
 
-    await api.post('/media', {
+    await api.put(`/media/${id}`, {
       titulo: titulo,
       tipo: {
-        id: 7
+        id: 3
       },
-      qtd_paginas: qtdPaginas
+      minutagem: minutagem
     }).then(async () => {
-      await Alert('Cadastro Realizado com Sucesso!', 'Cadastro de Livro');
-      history.push('/livros');
+      await Alert('Registro Atualizado com Sucesso!', 'Edição de Filme');
+      history.push('/filmes');
     }).catch(error => {
-      Alert('Erro ao cadastrar livro', error.message);
+      Alert('Erro ao editar filme', error.message);
     });
   }
+
   return (
     <>
       <div className="container-fluid">
@@ -46,12 +62,12 @@ const MediaBooksForm = () => {
             <nav aria-label="breadcrumb">
               <ol className="cadastro-ol breadcrumb">
                 <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-                <li className="breadcrumb-item"><Link to="/livros">Livros</Link></li>
-                <li className="breadcrumb-item active" aria-current="page">Novo Livro</li>
+                <li className="breadcrumb-item"><Link to="/filmes">Filmes</Link></li>
+                <li className="breadcrumb-item active" aria-current="page">Novo Filme</li>
               </ol>
             </nav>
             <div className="form-cad">
-              <form onSubmit={createBook}>
+              <form onSubmit={createMovie}>
                 <div className="form-group">
                   <input
                     type="text"
@@ -67,11 +83,11 @@ const MediaBooksForm = () => {
                   <input
                     type="number"
                     className="form-control"
-                    name="qtdPagina"
+                    name="minutagem"
                     min="1"
-                    placeholder="Qtd de Páginas *"
-                    value={qtdPaginas}
-                    onChange={(e) => { setQtdPaginas(e.target.value) }}
+                    placeholder="Minutagem *"
+                    value={minutagem}
+                    onChange={(e) => { setMinutagem(e.target.value) }}
                     required
                   />
                 </div>
@@ -86,4 +102,4 @@ const MediaBooksForm = () => {
   );
 };
 
-export default MediaBooksForm;
+export default MediaMoviesFormUpdate;

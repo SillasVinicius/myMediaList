@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-st-modal';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import Header from './../../../components/Header';
 import api from './../../../services/api';
 import './styles.css';
 
-const FavoritesForm = () => {
+const FavoritesFormUpdate = () => {
   const history = useHistory();
 
+  const { id } = useParams();
   const [userId, setUserId] = useState('');
   const [mediaId, setMediaId] = useState('');
   const [statusId, setStatusId] = useState('');
+
+  useEffect(() => {
+    async function fetchData() {
+      await api.get(`/biblioteca/${id}`).then(r => {
+        setUserId(r.data.usuario.id);
+        setMediaId(r.data.media.id);
+        setStatusId(r.data.status.id);
+      }).catch((error) => {
+        Alert('Erro ao carregar biblioteca', error.message);
+        history.push('/biblioteca');
+      });
+    }
+
+    fetchData();
+  }, [id]);
 
   function limpar() {
     setUserId('');
@@ -27,7 +43,7 @@ const FavoritesForm = () => {
       statusId
     });
 
-    await api.post('/biblioteca', {
+    await api.put(`/biblioteca/${id}`, {
       usuario: {
         id: userId
       },
@@ -38,10 +54,10 @@ const FavoritesForm = () => {
         id: statusId
       },
     }).then(async () => {
-      await Alert('Cadastro Realizado com Sucesso!', 'Cadastro de Biblioteca');
+      await Alert('Registro Atualizado com Sucesso!', 'Edição de Biblioteca');
       history.push('/biblioteca');
     }).catch(error => {
-      Alert('Erro ao cadastrar Biblioteca', error.message);
+      Alert('Erro ao editar Biblioteca', error.message);
     });
   }
 
@@ -107,4 +123,4 @@ const FavoritesForm = () => {
   );
 };
 
-export default FavoritesForm;
+export default FavoritesFormUpdate;

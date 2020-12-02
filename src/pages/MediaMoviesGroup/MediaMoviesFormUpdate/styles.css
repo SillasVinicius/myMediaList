@@ -1,0 +1,14 @@
+section .cadastro {
+    width: 60%; 
+    padding-bottom: 30px; 
+    padding-top: 24;
+}
+
+section .cadastro nav .cadastro-ol {
+    background-color: white; 
+    padding-left: 0px;
+}
+
+section .cadastro .form-cad form button {
+    margin-top: 16px;
+}

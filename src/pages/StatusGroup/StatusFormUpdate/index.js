@@ -1,30 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-st-modal';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import Header from './../../../components/Header';
 import api from './../../../services/api';
 import './styles.css';
 
-const TypeForm = () => {
-
+const StatusFormUpdate = () => {
   const history = useHistory();
-
+  
+  const { id } = useParams();
   const [descricao, setDescricao] = useState('');
+
+  useEffect(() => {
+    async function fetchData() {
+      await api.get(`/status/${id}`).then(r => {
+        setDescricao(r.data.descricao);
+      }).catch((error) => {
+        Alert('Erro ao carregar Status', error.message);
+        history.push('/tipo');
+      });
+    }
+
+    fetchData();
+  }, [id]);
 
   function limpar() {
     setDescricao('');
   }
 
-  async function createType(e) {
+  async function createStatus(e) {
     e.preventDefault();
 
-    await api.post('/tipo', {
+    await api.put(`/status/${id}`, {
       descricao
     }).then(async () => {
-      await Alert('Cadastro Realizado com Sucesso!', 'Cadastro de Tipo');
-      history.push('/tipo');
+      await Alert('Registro Atualizado com Sucesso!', 'Edição de Status');
+      history.push('/status');
     }).catch(error => {
-      Alert('Erro ao cadastrar tipo', error.message);
+      Alert('Erro ao editar Status', error.message);
     });
   }
 
@@ -37,17 +50,17 @@ const TypeForm = () => {
             <nav aria-label="breadcrumb">
               <ol className="cadastro-ol breadcrumb">
                 <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-                <li className="breadcrumb-item"><Link to="/tipo">Tipos</Link></li>
-                <li className="breadcrumb-item active" aria-current="page">Novo Tipo</li>
+                <li className="breadcrumb-item"><Link to="/status">Status</Link></li>
+                <li className="breadcrumb-item active" aria-current="page">Novo Status</li>
               </ol>
             </nav>
             <div className="form-cad">
-              <form onSubmit={createType}>
+              <form onSubmit={createStatus}>
                 <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="descricao"
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    name="descricao" 
                     placeholder="Descrição *"
                     value={descricao}
                     onChange={(e) => { setDescricao(e.target.value) }}
@@ -65,4 +78,4 @@ const TypeForm = () => {
   );
 };
 
-export default TypeForm;
+export default StatusFormUpdate;

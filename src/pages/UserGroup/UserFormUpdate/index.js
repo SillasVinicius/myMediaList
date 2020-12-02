@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-st-modal';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import Header from './../../../components/Header';
 import api from './../../../services/api';
 import './styles.css';
 
-const UserForm = () => {
+const UserFormUpdate = () => {
   const history = useHistory();
 
+  const { id } = useParams();
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+
+  useEffect(() => {
+    async function fetchData() {
+      await api.get(`/usuario/${id}`).then(r => {
+        setNome(r.data.nome);
+        setEmail(r.data.email);
+        setSenha(r.data.senha);
+      }).catch((error) => {
+        Alert('Erro ao carregar usuário', error.message);
+        history.push('/user');
+      });
+    }
+
+    fetchData();
+  }, [id]);
 
   function limpar() {
     setNome('');
@@ -27,15 +43,15 @@ const UserForm = () => {
       senha
     })
 
-    await api.post('/usuario', {
+    await api.put(`/usuario/${id}`, {
       nome,
       email,
       senha
     }).then(async () => {
-        await Alert('Cadastro Realizado com Sucesso!', 'Cadastro de Usuário' );
-        history.push('/user');
+      await Alert('Registro Atualizado com Sucesso!', 'Edição de Usuário');
+      history.push('/user');
     }).catch(error => {
-      Alert('Erro ao cadastrar usuário', error.message);
+      Alert('Erro ao editar usuário', error.message);
     });
   }
 
@@ -98,4 +114,4 @@ const UserForm = () => {
   );
 };
 
-export default UserForm;
+export default UserFormUpdate;

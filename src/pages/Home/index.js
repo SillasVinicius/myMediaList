@@ -1,9 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
+import Loading from '../../components/Loading';
+import api from './../../services/api';
 import './styles.css';
 
 const Home = () => {
+
+  const [userRegisters, setUserRegisters] = useState();
+  const [bibliotecaRegisters, setBibliotecaRegisters] = useState(0);
+  const [statusRegisters, setStatusRegisters] = useState(0);
+  const [tipoRegisters, setTipoRegisters] = useState(0);
+  const [mediaMoviesRegisters, setMediaMoviesRegisters] = useState(0);
+  const [mediaSeriesRegisters, setMediaSeriesRegisters] = useState(0);
+  const [mediaBookRegisters, setMediaBookRegisters] = useState(0);
+
+  useEffect(() => {
+    async function fetchData() {
+      await api.get('/biblioteca/getCount').then(r => {
+        setBibliotecaRegisters(r.data);
+      });
+      await api.get('/tipo/getCount').then(r => {
+        setTipoRegisters(r.data);
+      });
+      await api.get('/status/getCount').then(r => {
+        setStatusRegisters(r.data);
+      });
+      await api.get('/media/getCountMovie').then(r => {
+        setMediaMoviesRegisters(r.data);
+      });
+      await api.get('/media/getCountSerie').then(r => {
+        setMediaSeriesRegisters(r.data);
+      });
+      await api.get('/media/getCountBook').then(r => {
+        setMediaBookRegisters(r.data);
+      });
+      await api.get('/usuario/getCount').then(r => {
+        setUserRegisters(r.data);
+      });
+    }
+
+    fetchData();
+  }, []);
+
+  if (!userRegisters) {
+    return <Loading />;
+  }
+
   return (
     <div className="container-fluid">
       <Header />
@@ -11,12 +54,12 @@ const Home = () => {
         <div className="card">
           <img
             src="data:image/jpeg;base64,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"
-            className="card-img-top" alt="..." 
+            className="card-img-top" alt="..."
           />
           <div className="card-body">
             <h5 className="card-title">Usuários</h5>
             <p className="card-text">
-              Registros: <span>10</span>
+              Registros: <span> {userRegisters} </span>
             </p>
             <Link to="/user" className="btn btn-primary">Ver</Link>
           </div>
@@ -29,7 +72,7 @@ const Home = () => {
           <div className="card-body">
             <h5 className="card-title">Filmes</h5>
             <p className="card-text">
-              Registros: <span>10</span>
+              Registros: <span> {mediaMoviesRegisters} </span>
             </p>
             <Link to="/filmes" className="btn btn-primary">Ver</Link>
           </div>
@@ -42,7 +85,7 @@ const Home = () => {
           <div className="card-body">
             <h5 className="card-title">Séries</h5>
             <p className="card-text">
-              Registros: <span>10</span>
+              Registros: <span>{mediaSeriesRegisters}</span>
             </p>
             <Link to="/series" className="btn btn-primary">Ver</Link>
           </div>
@@ -55,7 +98,7 @@ const Home = () => {
           <div className="card-body">
             <h5 className="card-title">Livros</h5>
             <p className="card-text">
-              Registros: <span>10</span>
+              Registros: <span>{mediaBookRegisters}</span>
             </p>
             <Link to="/livros" className="btn btn-primary">Ver</Link>
           </div>
@@ -68,7 +111,7 @@ const Home = () => {
           <div className="card-body">
             <h5 className="card-title">Biblioteca</h5>
             <p className="card-text">
-              Registros: <span>10</span>
+              Registros: <span> {bibliotecaRegisters} </span>
             </p>
             <Link to="/biblioteca" className="btn btn-primary">Ver</Link>
           </div>
@@ -81,7 +124,7 @@ const Home = () => {
           <div className="card-body">
             <h5 className="card-title">Status</h5>
             <p className="card-text">
-              Registros: <span>10</span>
+              Registros: <span>{statusRegisters}</span>
             </p>
             <Link to="/status" className="btn btn-primary">Ver</Link>
           </div>
@@ -94,7 +137,7 @@ const Home = () => {
           <div className="card-body">
             <h5 className="card-title">Tipo</h5>
             <p className="card-text">
-              Registros: <span>10</span>
+              Registros: <span>{tipoRegisters}</span>
             </p>
             <Link to="/tipo" className="btn btn-primary">Ver</Link>
           </div>

@@ -1,15 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-st-modal';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import Header from './../../../components/Header';
 import api from './../../../services/api';
 import './styles.css';
 
-const TypeForm = () => {
+const TypeFormUpdate = () => {
 
   const history = useHistory();
-
+  
+  const { id } = useParams();
   const [descricao, setDescricao] = useState('');
+
+  useEffect(() => {
+    async function fetchData() {
+      await api.get(`/tipo/${id}`).then(r => {
+        setDescricao(r.data.descricao);
+      }).catch((error) => {
+        Alert('Erro ao carregar tipo', error.message);
+        history.push('/tipo');
+      });
+    }
+
+    fetchData();
+  }, [id]);
 
   function limpar() {
     setDescricao('');
@@ -18,13 +32,13 @@ const TypeForm = () => {
   async function createType(e) {
     e.preventDefault();
 
-    await api.post('/tipo', {
+    await api.put(`/tipo/${id}`, {
       descricao
     }).then(async () => {
-      await Alert('Cadastro Realizado com Sucesso!', 'Cadastro de Tipo');
+      await Alert('Registro Atualizado com Sucesso!', 'Edição de Tipo');
       history.push('/tipo');
     }).catch(error => {
-      Alert('Erro ao cadastrar tipo', error.message);
+      Alert('Erro ao editar Tipo', error.message);
     });
   }
 
@@ -65,4 +79,4 @@ const TypeForm = () => {
   );
 };
 
-export default TypeForm;
+export default TypeFormUpdate;

@@ -1,9 +1,32 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import Header from './../../../components/Header';
+import Loading from './../../../components/Loading';
+import { Confirm, Alert } from 'react-st-modal';
+
+import { Link } from 'react-router-dom';
+import api from './../../../services/api';
+
 import './styles.css';
 
+
 const Favorites = () => {
+  const [favorites, setFavorites] = useState([]);
+  const [atualizarPage, setAtualizarPage] = useState(0);
+
+  useEffect(() => {
+    async function fetchData() {
+      await api.get('/biblioteca').then(r => {
+        setFavorites(r.data);
+      });
+    }
+
+    fetchData();
+  }, [atualizarPage]);
+
+  if (!favorites) {
+    return <Loading />;
+  }
+
   return (
     <>
       <div className="container-fluid">
@@ -16,38 +39,48 @@ const Favorites = () => {
                 <li className="breadcrumb-item active" aria-current="page">Bibliotecas</li>
               </ol>
             </nav>
-            <div className="card shadow-sm bg-white rounded item">
-              <div className="card-body">
-                <p className="card-subtitle mb2 text-muted">
-                  <span>Id: 1</span>
-                </p>
-                <Link to="#">
-                  <h4 className="card-title">User_id: 1</h4>
-                  <h5 className="card-thirdSubtitle">Media_id: 1</h5>
-                  <span >Status_id: 2</span>
-                </Link>
-                <div className="botoes">
-                  <Link to="/editfavorite/1" className="btn btn-info" role="button">Editar</Link>&nbsp;
-                  <button className="btn btn-danger" type="button">Excluir</button>
-                </div>
-              </div>
-            </div>
-            <div className="card shadow-sm bg-white rounded item">
-              <div className="card-body">
-                <p className="card-subtitle mb2 text-muted">
-                  <span>Id: 2</span>
-                </p>
-                <Link to="#">
-                  <h4 className="card-title">User_id: 2</h4>
-                  <h5 className="card-thirdSubtitle">Media_id: 3</h5>
-                  <span >Status_id: 1</span>
-                </Link>
-                <div className="botoes">
-                  <Link to="/editfavorite/2" className="btn btn-info" role="button">Editar</Link>&nbsp;
-                  <button className="btn btn-danger" type="button">Excluir</button>
-                </div>
-              </div>
-            </div>
+            {
+              favorites.length !== 0
+                ? favorites.map(f => {
+                  return (
+                    <div className="card shadow-sm bg-white rounded item" key={f.id}>
+                      <div className="card-body">
+                        <p className="card-subtitle mb2 text-muted">
+                          <span>Id: {f.id}</span>
+                        </p>
+                        <Link to="#">
+                          <h4 className="card-title">User: {f.usuario.nome}</h4>
+                          <h5 className="card-thirdSubtitle">Media: {f.media.titulo}</h5>
+                          <span >Status: {f.status.descricao}</span>
+                        </Link>
+                        <div className="botoes">
+                          <Link to={`/editfavorite/${f.id}`} className="btn btn-info" role="button">Editar</Link>&nbsp;
+                          <button
+                              className="btn btn-danger"
+                              type="button"
+                              onClick={async () => {
+                                const result = await Confirm(
+                                  'Tem certeza que deseja excluir esse item ?',
+                                  'Você não poderá voltar atrás'
+                                );
+
+                                if (result) {
+                                  await api.delete(`/biblioteca/${f.id}`).catch(error => {
+                                    Alert('Verifique se esse item não está relacionado a algum registro em outra entidade!', error.message);
+                                  });
+                                  setAtualizarPage(f.id);
+                                }
+                              }}
+                            >
+                              Excluir
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+                : <p>Sem resultados...</p>
+            }
           </div>
         </section>
       </div>

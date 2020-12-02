@@ -9125,6 +9125,11 @@ react-scripts@4.0.0:
   optionalDependencies:
     fsevents "^2.1.3"
 
+react-st-modal@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/react-st-modal/-/react-st-modal-1.1.3.tgz#9f51b2028ceef2b9d1ed4abeca68211b619067bb"
+  integrity sha512-QNAKjxPPKcHHGDKvXjcTkGgSzxd495nBxunGf3t4XfKjEDARKANcFg8yC1a3T2h/kXKB+YQfVuR5bK9iERWDDg==
+
 react@^17.0.1:
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.1.tgz#6e0600416bd57574e3f86d92edba3d9008726127"

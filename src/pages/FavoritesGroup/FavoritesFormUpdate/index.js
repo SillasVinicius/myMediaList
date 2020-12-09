@@ -15,7 +15,7 @@ const FavoritesFormUpdate = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await api.get(`/biblioteca/${id}`).then(r => {
+      await api.get(`/biblioteca/${id}`, api.auth).then(r => {
         setUserId(r.data.usuario.id);
         setMediaId(r.data.media.id);
         setStatusId(r.data.status.id);
@@ -53,7 +53,7 @@ const FavoritesFormUpdate = () => {
       status: {
         id: statusId
       },
-    }).then(async () => {
+    }, api.auth).then(async () => {
       await Alert('Registro Atualizado com Sucesso!', 'Edição de Biblioteca');
       history.push('/biblioteca');
     }).catch(error => {

@@ -15,7 +15,7 @@ const UserFormUpdate = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await api.get(`/usuario/${id}`).then(r => {
+      await api.get(`/usuario/${id}`, api.auth).then(r => {
         setNome(r.data.nome);
         setEmail(r.data.email);
         setSenha(r.data.senha);
@@ -47,7 +47,7 @@ const UserFormUpdate = () => {
       nome,
       email,
       senha
-    }).then(async () => {
+    }, api.auth).then(async () => {
       await Alert('Registro Atualizado com Sucesso!', 'Edição de Usuário');
       history.push('/user');
     }).catch(error => {

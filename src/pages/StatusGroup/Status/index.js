@@ -14,7 +14,7 @@ const Status = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await api.get('/status').then(r => {
+      await api.get('/status', api.auth).then(r => {
         setStatus(r.data);
       });
     }
@@ -63,7 +63,7 @@ const Status = () => {
                               );
 
                               if (result) {
-                                await api.delete(`/status/${s.id}`).catch(error => {
+                                await api.delete(`/status/${s.id}`, api.auth).catch(error => {
                                   Alert('Verifique se esse item não está relacionado a algum registro em outra entidade!', error.message);
                                 });
                                 setAtualizarPage(s.id);

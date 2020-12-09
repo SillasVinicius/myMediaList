@@ -14,7 +14,7 @@ const MediaSeries = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await api.get('/media/Serie').then(r => {
+      await api.get('/media/Serie', api.auth).then(r => {
         setSeries(r.data);
       });
     }
@@ -63,7 +63,7 @@ const MediaSeries = () => {
                               );
 
                               if (result) {
-                                await api.delete(`/media/${m.id}`).catch(error => {
+                                await api.delete(`/media/${m.id}`, api.auth).catch(error => {
                                   Alert('Verifique se esse item não está relacionado a algum registro em outra entidade!', error.message);
                                 });
                                 setAtualizarPage(m.id);

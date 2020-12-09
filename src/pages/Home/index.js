@@ -15,27 +15,30 @@ const Home = () => {
   const [mediaSeriesRegisters, setMediaSeriesRegisters] = useState(0);
   const [mediaBookRegisters, setMediaBookRegisters] = useState(0);
 
+  
   useEffect(() => {
     async function fetchData() {
-      await api.get('/biblioteca/getCount').then(r => {
+      await api.get('/biblioteca/getCount', api.auth
+      ).then(r => {
         setBibliotecaRegisters(r.data);
       });
-      await api.get('/tipo/getCount').then(r => {
+      await api.get('/tipo/getCount', api.auth).then(r => {
         setTipoRegisters(r.data);
       });
-      await api.get('/status/getCount').then(r => {
+      await api.get('/status/getCount', api.auth).then(r => {
         setStatusRegisters(r.data);
       });
-      await api.get('/media/getCountMovie').then(r => {
+      await api.get('/media/getCountMovie', api.auth).then(r => {
         setMediaMoviesRegisters(r.data);
       });
-      await api.get('/media/getCountSerie').then(r => {
+      await api.get('/media/getCountSerie', api.auth).then(r => {
         setMediaSeriesRegisters(r.data);
       });
-      await api.get('/media/getCountBook').then(r => {
+      await api.get('/media/getCountBook',api.auth
+      ).then(r => {
         setMediaBookRegisters(r.data);
       });
-      await api.get('/usuario/getCount').then(r => {
+      await api.get('/usuario/getCount', api.auth).then(r => {
         setUserRegisters(r.data);
       });
     }

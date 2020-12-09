@@ -30,7 +30,7 @@ const MediaBooksForm = () => {
         id: 7
       },
       qtd_paginas: qtdPaginas
-    }).then(async () => {
+    },api.auth).then(async () => {
       await Alert('Cadastro Realizado com Sucesso!', 'Cadastro de Livro');
       history.push('/livros');
     }).catch(error => {

@@ -14,7 +14,7 @@ const Type = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await api.get('/tipo').then(r => {
+      await api.get('/tipo', api.auth).then(r => {
         setTypes(r.data);
       });
     }
@@ -63,7 +63,7 @@ const Type = () => {
                               );
 
                               if (result) {
-                                await api.delete(`/tipo/${t.id}`).catch(error => {
+                                await api.delete(`/tipo/${t.id}`, api.auth).catch(error => {
                                   Alert('Verifique se esse item não está relacionado a algum registro em outra entidade!', error.message);
                                 });
                                 setAtualizarPage(t.id);

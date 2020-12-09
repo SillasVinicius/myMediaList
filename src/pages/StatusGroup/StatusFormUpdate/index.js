@@ -13,7 +13,7 @@ const StatusFormUpdate = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await api.get(`/status/${id}`).then(r => {
+      await api.get(`/status/${id}`, api.auth).then(r => {
         setDescricao(r.data.descricao);
       }).catch((error) => {
         Alert('Erro ao carregar Status', error.message);
@@ -33,7 +33,7 @@ const StatusFormUpdate = () => {
 
     await api.put(`/status/${id}`, {
       descricao
-    }).then(async () => {
+    }, api.auth).then(async () => {
       await Alert('Registro Atualizado com Sucesso!', 'Edição de Status');
       history.push('/status');
     }).catch(error => {

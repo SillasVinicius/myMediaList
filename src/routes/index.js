@@ -23,6 +23,7 @@ import Type from './../pages/TypeGroup/Type';
 import TypeForm from './../pages/TypeGroup/TypeForm';
 import TypeFormUpdate from './../pages/TypeGroup/TypeFormUpdate';
 
+import Teste from './../pages/Teste';
 
 function Routes() {
     return (
@@ -30,7 +31,10 @@ function Routes() {
             <Switch>
                 {/* home */}
                 <Route path="/" exact component={Home}/>
+                
                 {/* user */}
+                <Route path="/teste" exact component={Teste}/>
+
                 <Route path="/user" exact component={User}/>
                 <Route path="/newuser" exact component={UserForm}/>
                 <Route path="/edituser/:id" exact component={UserFormUpdate}/>

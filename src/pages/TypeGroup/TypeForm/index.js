@@ -20,7 +20,7 @@ const TypeForm = () => {
 
     await api.post('/tipo', {
       descricao
-    }).then(async () => {
+    }, api.auth).then(async () => {
       await Alert('Cadastro Realizado com Sucesso!', 'Cadastro de Tipo');
       history.push('/tipo');
     }).catch(error => {

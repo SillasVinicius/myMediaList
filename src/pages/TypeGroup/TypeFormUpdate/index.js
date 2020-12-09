@@ -14,7 +14,7 @@ const TypeFormUpdate = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await api.get(`/tipo/${id}`).then(r => {
+      await api.get(`/tipo/${id}`, api.auth).then(r => {
         setDescricao(r.data.descricao);
       }).catch((error) => {
         Alert('Erro ao carregar tipo', error.message);
@@ -34,7 +34,7 @@ const TypeFormUpdate = () => {
 
     await api.put(`/tipo/${id}`, {
       descricao
-    }).then(async () => {
+    }, api.auth).then(async () => {
       await Alert('Registro Atualizado com Sucesso!', 'Edição de Tipo');
       history.push('/tipo');
     }).catch(error => {

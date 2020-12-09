@@ -30,7 +30,7 @@ const MediaMoviesForm = () => {
         id: 3
       },
       minutagem: minutagem
-    }).then(async () => {
+    }, api.auth).then(async () => {
       await Alert('Cadastro Realizado com Sucesso!', 'Cadastro de Filme');
       history.push('/filmes');
     }).catch(error => {

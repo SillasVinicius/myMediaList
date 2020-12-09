@@ -14,7 +14,7 @@ const User = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await api.get('/usuario').then(r => {
+      await api.get('/usuario', api.auth).then(r => {
         setUsers(r.data);
       });
     }
@@ -64,7 +64,7 @@ const User = () => {
                               );
 
                               if (result) {
-                                await api.delete(`/usuario/${u.id}`).catch(error => {
+                                await api.delete(`/usuario/${u.id}`, api.auth).catch(error => {
                                   Alert('Verifique se esse item não está relacionado a algum registro em outra entidade!', error.message);
                                 });
                                 setAtualizarPage(u.id);

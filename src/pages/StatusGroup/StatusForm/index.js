@@ -19,7 +19,7 @@ const StatusForm = () => {
 
     await api.post('/status', {
       descricao
-    }).then(async () => {
+    }, api.auth).then(async () => {
       await Alert('Cadastro Realizado com Sucesso!', 'Cadastro de Status');
       history.push('/status');
     }).catch(error => {

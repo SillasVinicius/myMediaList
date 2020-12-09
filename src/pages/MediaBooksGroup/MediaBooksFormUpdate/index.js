@@ -14,7 +14,7 @@ const MediaBooksFormUpdate = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await api.get(`/media/${id}`).then(r => {
+      await api.get(`/media/${id}`,api.auth).then(r => {
         setTitulo(r.data.titulo);
         setQtdPaginas(r.data.qtd_paginas);
       }).catch((error) => {
@@ -45,7 +45,7 @@ const MediaBooksFormUpdate = () => {
         id: 7
       },
       qtd_paginas: qtdPaginas
-    }).then(async () => {
+    }, api.auth).then(async () => {
       await Alert('Registro Atualizado com Sucesso!', 'Edição de Livro');
       history.push('/livros');
     }).catch(error => {

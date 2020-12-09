@@ -14,7 +14,7 @@ const MediaMoviesFormUpdate = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await api.get(`/media/${id}`).then(r => {
+      await api.get(`/media/${id}`, api.auth).then(r => {
         setTitulo(r.data.titulo);
         setMinutagem(r.data.minutagem);
       }).catch((error) => {
@@ -45,7 +45,7 @@ const MediaMoviesFormUpdate = () => {
         id: 3
       },
       minutagem: minutagem
-    }).then(async () => {
+    }, api.auth).then(async () => {
       await Alert('Registro Atualizado com Sucesso!', 'Edição de Filme');
       history.push('/filmes');
     }).catch(error => {

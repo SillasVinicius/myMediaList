@@ -36,8 +36,8 @@ const FavoritesForm = () => {
       },
       status: {
         id: statusId
-      },
-    }).then(async () => {
+      }, 
+    },api.auth).then(async () => {
       await Alert('Cadastro Realizado com Sucesso!', 'Cadastro de Biblioteca');
       history.push('/biblioteca');
     }).catch(error => {

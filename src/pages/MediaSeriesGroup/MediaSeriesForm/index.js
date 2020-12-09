@@ -30,7 +30,7 @@ const MediaSeriesForm = () => {
         id: 4
       },
       qtd_episodios: qtdEpisodios
-    }).then(async () => {
+    }, api.auth).then(async () => {
       await Alert('Cadastro Realizado com Sucesso!', 'Cadastro de Série');
       history.push('/series');
     }).catch(error => {

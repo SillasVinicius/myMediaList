@@ -31,7 +31,7 @@ const UserForm = () => {
       nome,
       email,
       senha
-    }).then(async () => {
+    }, api.auth).then(async () => {
         await Alert('Cadastro Realizado com Sucesso!', 'Cadastro de Usuário' );
         history.push('/user');
     }).catch(error => {

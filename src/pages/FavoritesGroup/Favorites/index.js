@@ -15,7 +15,7 @@ const Favorites = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await api.get('/biblioteca').then(r => {
+      await api.get('/biblioteca', api.auth).then(r => {
         setFavorites(r.data);
       });
     }
@@ -65,7 +65,7 @@ const Favorites = () => {
                                 );
 
                                 if (result) {
-                                  await api.delete(`/biblioteca/${f.id}`).catch(error => {
+                                  await api.delete(`/biblioteca/${f.id}`, api.auth).catch(error => {
                                     Alert('Verifique se esse item não está relacionado a algum registro em outra entidade!', error.message);
                                   });
                                   setAtualizarPage(f.id);

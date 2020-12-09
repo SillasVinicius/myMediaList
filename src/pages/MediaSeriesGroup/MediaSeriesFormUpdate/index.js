@@ -14,7 +14,7 @@ const MediaSeriesFormUpdate = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await api.get(`/media/${id}`).then(r => {
+      await api.get(`/media/${id}`, api.auth).then(r => {
         setTitulo(r.data.titulo);
         setQtdEpisodios(r.data.qtd_episodios);
       }).catch((error) => {
@@ -45,7 +45,7 @@ const MediaSeriesFormUpdate = () => {
         id: 4
       },
       qtd_episodios: qtdEpisodios
-    }).then(async () => {
+    }, api.auth).then(async () => {
       await Alert('Registro Atualizado com Sucesso!', 'Edição de Série');
       history.push('/series');
     }).catch(error => {

@@ -16,7 +16,7 @@ const FavoritesFormUpdate = () => {
   useEffect(() => {
     async function fetchData() {
       await api.get(`/biblioteca/${id}`, api.auth).then(r => {
-        setUserId(r.data.usuario.id);
+        setUserId(r.data.usuario.username);
         setMediaId(r.data.media.id);
         setStatusId(r.data.status.id);
       }).catch((error) => {
@@ -45,7 +45,7 @@ const FavoritesFormUpdate = () => {
 
     await api.put(`/biblioteca/${id}`, {
       usuario: {
-        id: userId
+        username: userId
       },
       media: {
         id: mediaId
@@ -78,7 +78,7 @@ const FavoritesFormUpdate = () => {
               <form onSubmit={createFavorite} >
                 <div className="form-group">
                   <input
-                    type="number"
+                    type="text"
                     className="form-control"
                     name="user_id"
                     min="1"

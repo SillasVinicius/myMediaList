@@ -29,7 +29,7 @@ const FavoritesForm = () => {
 
     await api.post('/biblioteca', {
       usuario: {
-        id: userId
+        username: userId
       },
       media: {
         id: mediaId
@@ -62,7 +62,7 @@ const FavoritesForm = () => {
               <form onSubmit={createFavorite} >
                 <div className="form-group">
                   <input
-                    type="number"
+                    type="text"
                     className="form-control"
                     name="user_id"
                     min="1"

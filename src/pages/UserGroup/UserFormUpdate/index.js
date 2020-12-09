@@ -37,16 +37,10 @@ const UserFormUpdate = () => {
   async function createUser(e) {
     e.preventDefault();
 
-    console.log({
-      nome,
-      email,
-      senha
-    })
-
     await api.put(`/usuario/${id}`, {
-      nome,
-      email,
-      senha
+      username:nome,
+      email:email,
+      password:senha
     }, api.auth).then(async () => {
       await Alert('Registro Atualizado com Sucesso!', 'Edição de Usuário');
       history.push('/user');

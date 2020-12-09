@@ -24,16 +24,20 @@ import TypeForm from './../pages/TypeGroup/TypeForm';
 import TypeFormUpdate from './../pages/TypeGroup/TypeFormUpdate';
 
 import Teste from './../pages/Teste';
+import Login from './../pages/Login';
 
 function Routes() {
     return (
         <BrowserRouter>
             <Switch>
                 {/* home */}
-                <Route path="/" exact component={Home}/>
+                <Route path="/" exact component={Login}/>
                 
                 {/* user */}
                 <Route path="/teste" exact component={Teste}/>
+
+                {/* user */}
+                <Route path="/home" exact component={Home}/>
 
                 <Route path="/user" exact component={User}/>
                 <Route path="/newuser" exact component={UserForm}/>

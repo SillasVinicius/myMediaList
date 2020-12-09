@@ -20,17 +20,12 @@ const UserForm = () => {
 
   async function createUser(e) {
     e.preventDefault();
-
-    console.log({
-      nome,
-      email,
-      senha
-    })
+   
 
     await api.post('/usuario', {
-      nome,
-      email,
-      senha
+      username: nome,
+      email: email,
+      password: senha
     }, api.auth).then(async () => {
         await Alert('Cadastro Realizado com Sucesso!', 'Cadastro de Usuário' );
         history.push('/user');

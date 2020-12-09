@@ -1,0 +1,152 @@
+.login-body {
+    background: gray;    
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+}
+
+#box{
+    
+    width: 50vw;
+    height: 100vh;
+    background: #18C29C;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login{
+    width: 50vw;
+    height: 100vh;
+    background: #E5E5E5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.login-area{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 5px;
+    width: 352px;
+    height: 310px;
+}
+
+.slogan{
+    color: #CEFFF4;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.login-title{
+    font-size: 36px;
+    justify-content: left;
+    margin-bottom: 5px;
+}
+
+.login-forgot{
+    display: flex;
+    justify-content: space-between; 
+}
+
+.login-forgot ul {
+    display: flex;
+    list-style: none;
+}
+
+.login-forgot ul li {
+    display: flex;
+    align-items: center;
+    
+    font-size: 14px;
+    color: #667580;
+    font-weight: bold;
+
+    margin-left: 30px;
+    margin-top: 15px;
+
+    font-weight: bold;
+}
+
+.loginCad a {
+    color: #667580;
+    font-size: 13px;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.loginCad a:hover {
+    color: #4f5b63;
+}
+
+.login-input {
+    width: 100%;
+    height: 5.6rem;
+    margin-top: 0.8rem;
+    border-radius: 0.8rem;
+    background: #FAFAFC;
+    border: 1px solid #E6E6F0;
+    outline: 0;
+    padding: 0 1.6rem;
+}
+
+.input-teste {
+    width: 100%;
+    height: 5.6rem;
+    margin-top: 0.8rem;
+    border-radius: 0.8rem;
+    background: #FAFAFC;
+    border: 1px solid #E6E6F0;
+    outline: 0;
+    padding: 0 1.6rem;
+}
+
+.login-img{
+    width: 66%;
+}
+
+.login-button {
+    background: #5a5a5a;
+    border: 0;
+    color: white;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    width: 100%;
+    height: 60px;
+    margin-top: 10px;
+    font-size: 17px;
+}
+
+.seta {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+}
+
+.seta a {
+    text-decoration: none;
+}
+
+.seta a svg {
+    width: 20px;
+    height: 20px;
+    color: black;
+}
+
+.invalidPassword {
+    display: flex;
+    justify-content: center;
+    font-size: large;
+    color: red;
+}

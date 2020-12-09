@@ -45,15 +45,15 @@ const User = () => {
                     <div className="card shadow-sm bg-white rounded item" key={u.id}>
                       <div className="card-body">
                         <p className="card-subtitle mb2 text-muted">
-                          <span>Id: {u.id}</span>
+                          <span>Id: {u.username}</span>
                         </p>
                         <Link to="#">
-                          <h4 className="card-title">Nome: {u.nome}</h4>
+                          <h4 className="card-title">Username: {u.username}</h4>
                           <h5 className="card-thirdSubtitle">Email: {u.email}</h5>
-                          <span >Senha: {u.senha}</span>
+                          <span >Password: {u.password}</span>
                         </Link>
                         <div className="botoes">
-                          <Link to={`/edituser/${u.id}`} className="btn btn-info" role="button">Editar</Link>&nbsp;
+                          <Link to={`/edituser/${u.username}`} className="btn btn-info" role="button">Editar</Link>&nbsp;
                           <button
                             className="btn btn-danger"
                             type="button"
@@ -64,10 +64,10 @@ const User = () => {
                               );
 
                               if (result) {
-                                await api.delete(`/usuario/${u.id}`, api.auth).catch(error => {
+                                await api.delete(`/usuario/${u.username}`, api.auth).catch(error => {
                                   Alert('Verifique se esse item não está relacionado a algum registro em outra entidade!', error.message);
                                 });
-                                setAtualizarPage(u.id);
+                                setAtualizarPage(u.username);
                               }
                             }}
                           >

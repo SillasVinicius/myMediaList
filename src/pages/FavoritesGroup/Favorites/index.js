@@ -49,7 +49,7 @@ const Favorites = () => {
                           <span>Id: {f.id}</span>
                         </p>
                         <Link to="#">
-                          <h4 className="card-title">User: {f.usuario.nome}</h4>
+                          <h4 className="card-title">User: {f.usuario.username}</h4>
                           <h5 className="card-thirdSubtitle">Media: {f.media.titulo}</h5>
                           <span >Status: {f.status.descricao}</span>
                         </Link>
